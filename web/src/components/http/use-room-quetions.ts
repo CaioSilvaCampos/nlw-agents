@@ -1,0 +1,14 @@
+import { useQuery } from "@tanstack/react-query"
+import type { GetRoomsQuestionsApiResponse } from "./types/get-room-questions-response"
+
+export function useRoomQuestions(roomId : string) {
+   return useQuery({
+    queryKey: ['get-questions', roomId],
+    queryFn: async ()=> {
+        const response = await fetch(`http://localhost:3000/rooms/${roomId}/questions`)
+        const result: GetRoomsQuestionsApiResponse = await response.json()
+
+        return result
+    },
+   })
+}
